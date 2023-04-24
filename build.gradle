@@ -1,0 +1,26 @@
+plugins {
+	id "java"
+	id "application"
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+jar {
+	manifest {
+		attributes(
+				"Main-Class" : "temp.calendar.table.Main"
+		)
+	}
+	from {
+		configurations.runtimeClasspath.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+}
+
+dependencies {
+	implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.31'
+}

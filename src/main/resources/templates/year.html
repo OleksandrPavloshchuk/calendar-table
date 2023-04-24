@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${year}</title>
+
+  <style type="text/css">
+    body {
+      font-family: Helvetica, sans serif;
+      font-size: 10pt;
+    }
+    h3 {
+      text-align: center;
+    }
+    td {
+      padding: 0.4em;
+    }
+    .day {
+      text-align: right;
+    }
+    .weekend {
+      color: maroon;
+      font-weight: bold;
+    }
+    .month-title {
+      text-align: left;
+      border-bottom: 1px dashed black;
+      border-right: 1px dashed black;
+    }
+    .weekday-title {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td colspan="3">
+        <h3>${year}</h3>
+      </td>
+    </tr>
+  <#list table as month>
+    <#if month?index % 3 == 0><tr></#if>
+    <td>
+    <table>
+      <tr>
+        <th class="month-title" colspan="7">${monthNames[month?index]}</th>
+      </tr>
+      <#list month as weekDayRow>
+      <tr>
+        <td class="weekday-title <#if (weekDayRow?index>=5)>weekend</#if>">${weekDayNames[weekDayRow?index]}</td>
+        <#list weekDayRow as day>
+        <td class="day <#if (weekDayRow?index>=5)>weekend</#if>">
+          <#if day!=0>${day}</#if>
+        </td>
+        </#list>
+      </tr>
+      </#list>
+    </table>
+    </td>
+    <#if month?index % 3 == 2></tr></#if>
+  </#list>
+  </table>
+</body>
+</html>
